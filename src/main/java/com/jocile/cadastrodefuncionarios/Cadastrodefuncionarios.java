@@ -4,6 +4,8 @@
 
 package com.jocile.cadastrodefuncionarios;
 
+import com.jocile.cadastrodefuncionarios.view.principal;
+
 /**
  *
  * @author aluno
@@ -11,6 +13,6 @@ package com.jocile.cadastrodefuncionarios;
 public class Cadastrodefuncionarios {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        new principal().setVisible(true);
     }
 }
