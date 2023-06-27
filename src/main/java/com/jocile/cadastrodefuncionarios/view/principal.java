@@ -111,6 +111,11 @@ public class principal extends javax.swing.JFrame {
         jLabel2.setText("Nome:");
 
         btn_dep_salvar.setText("Salvar");
+        btn_dep_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dep_salvarActionPerformed(evt);
+            }
+        });
 
         btn_dep_cancelar.setText("Cancelar");
         btn_dep_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -372,6 +377,15 @@ public class principal extends javax.swing.JFrame {
         btn_dep_salvar.setEnabled(false);
         btn_dep_cancelar.setEnabled(false);
     }//GEN-LAST:event_btn_dep_cancelarActionPerformed
+
+    private void btn_dep_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_salvarActionPerformed
+        int cod = Integer.parseInt(c_dep_codigo.getText());
+        Departamento D = new Departamento(cod, c_dep_nome.getText());
+        ListaDep.add(D);
+        
+        LoadTableDep();
+
+    }//GEN-LAST:event_btn_dep_salvarActionPerformed
 
     /**
      * @param args the command line arguments
