@@ -113,6 +113,11 @@ public class principal extends javax.swing.JFrame {
         btn_dep_salvar.setText("Salvar");
 
         btn_dep_cancelar.setText("Cancelar");
+        btn_dep_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dep_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -359,6 +364,14 @@ public class principal extends javax.swing.JFrame {
         c_dep_codigo.setEnabled(true);
         c_dep_nome.setEnabled(true);
     }//GEN-LAST:event_btn_dep_novoActionPerformed
+
+    private void btn_dep_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_cancelarActionPerformed
+        c_dep_codigo.setText("");
+        c_dep_nome.setText("");
+        
+        btn_dep_salvar.setEnabled(false);
+        btn_dep_cancelar.setEnabled(false);
+    }//GEN-LAST:event_btn_dep_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
