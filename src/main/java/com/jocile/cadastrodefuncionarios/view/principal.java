@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class principal extends javax.swing.JFrame {
     ArrayList<Departamento> ListaDep;
-    
+    String modoDep;
     /**
      * Creates new form principal
      */
@@ -14,10 +14,63 @@ public class principal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ListaDep = new ArrayList();
-        btn_dep_salvar.setEnabled(false);
-        btn_dep_cancelar.setEnabled(false);
-        c_dep_codigo.setEnabled(false);
-        c_dep_nome.setEnabled(false);
+        modoDep = "Navegar";
+        ManipulaInterfaceDep();
+    }
+    
+    public void ManipulaInterfaceDep(){
+        switch(modoDep){
+            case "Navegar":
+                btn_dep_salvar.setEnabled(false);
+                btn_dep_cancelar.setEnabled(false);
+                c_dep_codigo.setEnabled(false);
+                c_dep_nome.setEnabled(false);
+                btn_dep_novo.setEnabled(true);
+                btn_dep_editar.setEnabled(false);
+                btn_dep_excluir.setEnabled(false);
+                break;
+            
+            case "Novo":
+                btn_dep_salvar.setEnabled(true);
+                btn_dep_cancelar.setEnabled(true);
+                c_dep_codigo.setEnabled(true);
+                c_dep_nome.setEnabled(true);
+                btn_dep_novo.setEnabled(false);
+                btn_dep_editar.setEnabled(false);
+                btn_dep_excluir.setEnabled(false);
+                break;
+                
+            case "Editar":
+                btn_dep_salvar.setEnabled(true);
+                btn_dep_cancelar.setEnabled(true);
+                c_dep_codigo.setEnabled(true);
+                c_dep_nome.setEnabled(true);
+                btn_dep_novo.setEnabled(true);
+                btn_dep_editar.setEnabled(false);
+                btn_dep_excluir.setEnabled(false);
+                break;
+                
+            case "Excluir":
+                btn_dep_salvar.setEnabled(false);
+                btn_dep_cancelar.setEnabled(false);
+                c_dep_codigo.setEnabled(false);
+                c_dep_nome.setEnabled(false);
+                btn_dep_novo.setEnabled(true);
+                btn_dep_editar.setEnabled(false);
+                btn_dep_excluir.setEnabled(false);
+                break;
+                
+            case "Selecao":
+                btn_dep_salvar.setEnabled(false);
+                btn_dep_cancelar.setEnabled(false);
+                c_dep_codigo.setEnabled(false);
+                c_dep_nome.setEnabled(false);
+                btn_dep_novo.setEnabled(true);
+                btn_dep_editar.setEnabled(true);
+                btn_dep_excluir.setEnabled(true);
+                break;
+            default: System.out.println("Modo inválido");
+        }
     }
 
     public void LoadTableDep(){
@@ -364,10 +417,8 @@ public class principal extends javax.swing.JFrame {
         c_dep_codigo.setText("");
         c_dep_nome.setText("");
         
-        btn_dep_salvar.setEnabled(true);
-        btn_dep_cancelar.setEnabled(true);
-        c_dep_codigo.setEnabled(true);
-        c_dep_nome.setEnabled(true);
+        modoDep = "Novo";
+        ManipulaInterfaceDep();
     }//GEN-LAST:event_btn_dep_novoActionPerformed
 
     private void btn_dep_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_cancelarActionPerformed
