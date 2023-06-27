@@ -425,8 +425,8 @@ public class principal extends javax.swing.JFrame {
         c_dep_codigo.setText("");
         c_dep_nome.setText("");
         
-        btn_dep_salvar.setEnabled(false);
-        btn_dep_cancelar.setEnabled(false);
+        modoDep = "Navegar";
+        ManipulaInterfaceDep();
     }//GEN-LAST:event_btn_dep_cancelarActionPerformed
 
     private void btn_dep_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_salvarActionPerformed
