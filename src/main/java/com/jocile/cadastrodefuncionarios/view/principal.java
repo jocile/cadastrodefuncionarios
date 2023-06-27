@@ -244,6 +244,11 @@ public class principal extends javax.swing.JFrame {
         });
 
         btn_dep_excluir.setText("Excluir");
+        btn_dep_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dep_excluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -488,6 +493,16 @@ public class principal extends javax.swing.JFrame {
         modoDep = "Editar";
         ManipulaInterfaceDep();
     }//GEN-LAST:event_btn_dep_editarActionPerformed
+
+    private void btn_dep_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_excluirActionPerformed
+        int index = tbl_dep_dpts.getSelectedRow();
+        if(index>=0 && index<ListaDep.size()){
+            ListaDep.remove(index);
+        }
+        LoadTableDep();
+        modoDep = "Navegar";
+        ManipulaInterfaceDep();
+    }//GEN-LAST:event_btn_dep_excluirActionPerformed
 
     /**
      * @param args the command line arguments
