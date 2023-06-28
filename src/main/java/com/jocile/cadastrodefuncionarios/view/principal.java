@@ -592,7 +592,11 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_dep_excluirActionPerformed
 
     private void btn_func_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_novoActionPerformed
-        // TODO add your handling code here:
+        c_func_mat.setText("");
+        c_func_nome.setText("");
+        
+        modoFunc = "Novo";
+        ManipulaInterfaceFunc();
     }//GEN-LAST:event_btn_func_novoActionPerformed
 
     private void btn_func_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_editarActionPerformed
