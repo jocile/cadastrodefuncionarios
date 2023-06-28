@@ -151,6 +151,11 @@ public class principal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_dep_dpts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_dep_dptsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_dep_dpts);
         if (tbl_dep_dpts.getColumnModel().getColumnCount() > 0) {
             tbl_dep_dpts.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -222,8 +227,18 @@ public class principal extends javax.swing.JFrame {
         });
 
         btn_dep_editar.setText("Editar");
+        btn_dep_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dep_editarActionPerformed(evt);
+            }
+        });
 
         btn_dep_excluir.setText("Excluir");
+        btn_dep_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_dep_excluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -431,8 +446,16 @@ public class principal extends javax.swing.JFrame {
 
     private void btn_dep_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_salvarActionPerformed
         int cod = Integer.parseInt(c_dep_codigo.getText());
-        Departamento D = new Departamento(cod, c_dep_nome.getText());
-        ListaDep.add(D);
+        
+        //Testa se foi clicado o botão novo ou editar
+        if(modoDep.equals("Novo")){  
+            Departamento D = new Departamento(cod, c_dep_nome.getText());
+            ListaDep.add(D);
+        }else if(modoDep.equals("Editar")){
+            int index = tbl_dep_dpts.getSelectedRow();
+            ListaDep.get(index).setCodigo(cod);
+            ListaDep.get(index).setNome(c_dep_nome.getText());
+        }
         
         LoadTableDep();
         modoDep = "Navegar";
@@ -440,6 +463,37 @@ public class principal extends javax.swing.JFrame {
         c_dep_codigo.setText("");
         c_dep_nome.setText("");
     }//GEN-LAST:event_btn_dep_salvarActionPerformed
+
+    private void tbl_dep_dptsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_dep_dptsMouseClicked
+         //Pega a linha selecionada
+        int index = tbl_dep_dpts.getSelectedRow();
+
+        //Testa a validade da linha selecionada
+        if(index>=0 && index<ListaDep.size()){
+            //Seleciona a linha e preenche os campos para edição
+            Departamento D = ListaDep.get(index);
+            c_dep_codigo.setText(String.valueOf(D.getCodigo()));
+            c_dep_nome.setText(D.getNome());
+            //Manipula a interface para o modo seleção
+            modoDep = "Selecao";
+            ManipulaInterfaceDep();
+        }
+    }//GEN-LAST:event_tbl_dep_dptsMouseClicked
+
+    private void btn_dep_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_editarActionPerformed
+        modoDep = "Editar";
+        ManipulaInterfaceDep();
+    }//GEN-LAST:event_btn_dep_editarActionPerformed
+
+    private void btn_dep_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_dep_excluirActionPerformed
+        int index = tbl_dep_dpts.getSelectedRow();
+        if(index>=0 && index<ListaDep.size()){
+            ListaDep.remove(index);
+        }
+        LoadTableDep();
+        modoDep = "Navegar";
+        ManipulaInterfaceDep();
+    }//GEN-LAST:event_btn_dep_excluirActionPerformed
 
     /**
      * @param args the command line arguments
