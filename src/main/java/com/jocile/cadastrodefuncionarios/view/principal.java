@@ -435,7 +435,10 @@ public class principal extends javax.swing.JFrame {
         ListaDep.add(D);
         
         LoadTableDep();
-
+        modoDep = "Navegar";
+        ManipulaInterfaceDep();
+        c_dep_codigo.setText("");
+        c_dep_nome.setText("");
     }//GEN-LAST:event_btn_dep_salvarActionPerformed
 
     /**
