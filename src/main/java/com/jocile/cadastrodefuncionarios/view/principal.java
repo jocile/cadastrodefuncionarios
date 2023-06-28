@@ -5,7 +5,9 @@
 package com.jocile.cadastrodefuncionarios.view;
 
 import com.jocile.cadastrodefuncionarios.entities.Departamento;
+import com.jocile.cadastrodefuncionarios.entities.Funcionario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,7 +17,9 @@ import javax.swing.table.DefaultTableModel;
 public class principal extends javax.swing.JFrame {
 
     ArrayList<Departamento> ListaDep;
+    ArrayList<Funcionario> ListaFunc;  // Adicionada a lista de funcionários
     String modoDep;
+    String modoFunc;                   // Adicionada a variável de modo que muda a configuração
     
     /**
      * Creates new form principal
@@ -24,8 +28,11 @@ public class principal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ListaDep = new ArrayList();
+        ListaFunc = new ArrayList();
         modoDep = "Navegar";
+        modoFunc = "Navegar";       // Adicionada a configuração inicial
         ManipulaInterfaceDep();
+        ManipulaInterfaceFunc();    // Adicionada a chamada da função que manipula a tela
     }
 
     public void LoadTableDep(){
@@ -41,6 +48,33 @@ public class principal extends javax.swing.JFrame {
         tbl_dep_dpts.setModel(modelo);
         tbl_dep_dpts.getColumnModel().getColumn(0).setPreferredWidth(50);
         tbl_dep_dpts.getColumnModel().getColumn(1).setPreferredWidth(200);
+        
+        //Preenche a lista do combo box
+        LoadCBDep();
+    }
+    
+    public void LoadTableFunc(){
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Matrícula","Nome","Departamento"},0);
+            
+        for(int i=0;i<ListaFunc.size();i++){
+            Object linha[] = new Object[]{ListaFunc.get(i).getMatricula(),
+                                          ListaFunc.get(i).getNome(),
+                                          ListaFunc.get(i).getDep().getNome()};
+            modelo.addRow(linha);
+        }
+        
+        tbl_func_funcs.setModel(modelo);
+        tbl_func_funcs.getColumnModel().getColumn(0).setPreferredWidth(100);
+        tbl_func_funcs.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tbl_func_funcs.getColumnModel().getColumn(2).setPreferredWidth(150);
+    }
+    
+    public void LoadCBDep(){
+        cb_func_deps.removeAllItems();
+        cb_func_deps.addItem("Selecione");
+        for(int i=0;i<ListaDep.size();i++){
+            cb_func_deps.addItem(ListaDep.get(i).getNome());
+        }
     }
     
     public void ManipulaInterfaceDep(){
@@ -97,6 +131,66 @@ public class principal extends javax.swing.JFrame {
             default: System.out.println("Modo inválido");
         }
     }
+    
+    public void ManipulaInterfaceFunc(){
+        switch(modoFunc){
+            case "Navegar":
+                btn_func_salvar.setEnabled(false);
+                btn_func_cancelar.setEnabled(false);
+                c_func_mat.setEnabled(false);
+                c_func_nome.setEnabled(false);
+                btn_func_novo.setEnabled(true);
+                btn_func_editar.setEnabled(false);
+                btn_func_excluir.setEnabled(false);
+                cb_func_deps.setEnabled(false);
+                break;
+            
+            case "Novo":
+                btn_func_salvar.setEnabled(true);
+                btn_func_cancelar.setEnabled(true);
+                c_func_mat.setEnabled(true);
+                c_func_nome.setEnabled(true);
+                cb_func_deps.setEnabled(true);
+                btn_func_novo.setEnabled(false);
+                btn_func_editar.setEnabled(false);
+                btn_func_excluir.setEnabled(false);
+                break;
+                
+            case "Editar":
+                btn_func_salvar.setEnabled(true);
+                btn_func_cancelar.setEnabled(true);
+                c_func_mat.setEnabled(true);
+                c_func_nome.setEnabled(true);
+                cb_func_deps.setEnabled(true);
+                btn_func_novo.setEnabled(true);
+                btn_func_editar.setEnabled(false);
+                btn_func_excluir.setEnabled(false);
+                break;
+                
+            case "Excluir":
+                btn_func_salvar.setEnabled(false);
+                btn_func_cancelar.setEnabled(false);
+                c_func_mat.setEnabled(false);
+                c_func_nome.setEnabled(false);
+                cb_func_deps.setEnabled(false);
+                btn_func_novo.setEnabled(true);
+                btn_func_editar.setEnabled(false);
+                btn_func_excluir.setEnabled(false);
+                break;
+                
+            case "Selecao":
+                btn_func_salvar.setEnabled(false);
+                btn_func_cancelar.setEnabled(false);
+                c_func_mat.setEnabled(false);
+                c_func_nome.setEnabled(false);
+                cb_func_deps.setEnabled(false);
+                btn_func_novo.setEnabled(true);
+                btn_func_editar.setEnabled(true);
+                btn_func_excluir.setEnabled(true);
+                break;
+            default: System.out.println("Modo inválido");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,19 +216,19 @@ public class principal extends javax.swing.JFrame {
         btn_dep_excluir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbl_func_funcs = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        c_func_mat = new javax.swing.JTextField();
+        c_func_nome = new javax.swing.JTextField();
+        btn_func_salvar = new javax.swing.JButton();
+        btn_func_cancelar = new javax.swing.JButton();
+        cb_func_deps = new javax.swing.JComboBox<>();
+        btn_func_novo = new javax.swing.JButton();
+        btn_func_editar = new javax.swing.JButton();
+        btn_func_excluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -255,7 +349,7 @@ public class principal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
+                .addGap(0, 40, Short.MAX_VALUE)
                 .addComponent(btn_dep_novo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_dep_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,16 +379,16 @@ public class principal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Departamentos", jPanel1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_func_funcs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "cpf"
+                "Matrícula", "Nome", "Departamento"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -308,24 +402,29 @@ public class principal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(11);
+        jScrollPane2.setViewportView(tbl_func_funcs);
+        if (tbl_func_funcs.getColumnModel().getColumnCount() > 0) {
+            tbl_func_funcs.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbl_func_funcs.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tbl_func_funcs.getColumnModel().getColumn(2).setPreferredWidth(100);
         }
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Funcionário"));
 
-        jLabel3.setText("Código:");
+        jLabel3.setText("Matrícula:");
 
         jLabel4.setText("Nome:");
 
-        jLabel5.setText("CPF:");
+        jLabel5.setText("Departamento:");
 
-        jButton9.setText("Salvar");
+        btn_func_salvar.setText("Salvar");
+        btn_func_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_func_salvarActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText("Cancelar");
+        btn_func_cancelar.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -340,16 +439,16 @@ public class principal extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
                         .addGap(40, 40, 40)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(c_func_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                            .addComponent(c_func_mat, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cb_func_deps, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addComponent(jButton9)
+                        .addComponent(btn_func_salvar)
                         .addGap(69, 69, 69)
-                        .addComponent(jButton10)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(btn_func_cancelar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,27 +456,27 @@ public class principal extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(c_func_mat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(c_func_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(cb_func_deps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton9)
-                    .addComponent(jButton10))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(btn_func_salvar)
+                    .addComponent(btn_func_cancelar))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jButton6.setText("Novo");
+        btn_func_novo.setText("Novo");
 
-        jButton7.setText("Editar");
+        btn_func_editar.setText("Editar");
 
-        jButton8.setText("Excluir");
+        btn_func_excluir.setText("Excluir");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -387,14 +486,14 @@ public class principal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_func_novo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_func_editar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_func_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8))
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -407,9 +506,9 @@ public class principal extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
+                    .addComponent(btn_func_novo)
+                    .addComponent(btn_func_editar)
+                    .addComponent(btn_func_excluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -423,7 +522,7 @@ public class principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -504,6 +603,24 @@ public class principal extends javax.swing.JFrame {
         ManipulaInterfaceDep();
     }//GEN-LAST:event_btn_dep_excluirActionPerformed
 
+    private void btn_func_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_salvarActionPerformed
+        int index = cb_func_deps.getSelectedIndex();
+        if(index==0){
+            JOptionPane.showMessageDialog(this,"Você deve selecionar um departamento");
+        }else{
+            Funcionario F = new Funcionario();
+            F.setMatricula(Integer.parseInt(c_func_mat.getText()));
+            F.setNome(c_func_nome.getText());
+            F.setDep(ListaDep.get(index-1));
+            
+            ListaFunc.add(F);
+            ListaDep.get(index-1).addFunc(F);
+        }
+        LoadTableFunc();
+        modoFunc = "Navegar";
+        ManipulaInterfaceFunc();
+    }//GEN-LAST:event_btn_func_salvarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -545,13 +662,16 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton btn_dep_excluir;
     private javax.swing.JButton btn_dep_novo;
     private javax.swing.JButton btn_dep_salvar;
+    private javax.swing.JButton btn_func_cancelar;
+    private javax.swing.JButton btn_func_editar;
+    private javax.swing.JButton btn_func_excluir;
+    private javax.swing.JButton btn_func_novo;
+    private javax.swing.JButton btn_func_salvar;
     private javax.swing.JTextField c_dep_codigo;
     private javax.swing.JTextField c_dep_nome;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JTextField c_func_mat;
+    private javax.swing.JTextField c_func_nome;
+    private javax.swing.JComboBox<String> cb_func_deps;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -564,10 +684,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTable tbl_dep_dpts;
+    private javax.swing.JTable tbl_func_funcs;
     // End of variables declaration//GEN-END:variables
 }
