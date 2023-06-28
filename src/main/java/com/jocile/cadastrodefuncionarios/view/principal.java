@@ -152,6 +152,15 @@ public class principal extends javax.swing.JFrame {
         tbl_dep_dpts.setModel(modelo);
         tbl_dep_dpts.getColumnModel().getColumn(0).setPreferredWidth(50);
         tbl_dep_dpts.getColumnModel().getColumn(1).setPreferredWidth(200);
+        //Preenche a lista do combo box
+        LoadCBDep();
+    }
+    public void LoadCBDep(){
+        cb_func_deps.removeAllItems();
+        cb_func_deps.addItem("Selecione");
+        for(int i=0;i<ListaDep.size();i++){
+            cb_func_deps.addItem(ListaDep.get(i).getNome());
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -616,7 +625,11 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_func_salvarActionPerformed
 
     private void btn_func_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_cancelarActionPerformed
-        // TODO add your handling code here:
+        c_func_mat.setText("");
+        c_func_nome.setText("");
+        
+        modoFunc = "Navegar";
+        ManipulaInterfaceFunc();
     }//GEN-LAST:event_btn_func_cancelarActionPerformed
 
     /**
