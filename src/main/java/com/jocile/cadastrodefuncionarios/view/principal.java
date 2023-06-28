@@ -473,6 +473,11 @@ public class principal extends javax.swing.JFrame {
         );
 
         btn_func_novo.setText("Novo");
+        btn_func_novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_func_novoActionPerformed(evt);
+            }
+        });
 
         btn_func_editar.setText("Editar");
 
@@ -620,6 +625,14 @@ public class principal extends javax.swing.JFrame {
         modoFunc = "Navegar";
         ManipulaInterfaceFunc();
     }//GEN-LAST:event_btn_func_salvarActionPerformed
+
+    private void btn_func_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_novoActionPerformed
+        c_func_mat.setText("");
+        c_func_nome.setText("");
+        
+        modoFunc = "Novo";
+        ManipulaInterfaceFunc();
+    }//GEN-LAST:event_btn_func_novoActionPerformed
 
     /**
      * @param args the command line arguments
