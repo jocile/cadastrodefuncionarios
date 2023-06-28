@@ -425,6 +425,11 @@ public class principal extends javax.swing.JFrame {
         });
 
         btn_func_cancelar.setText("Cancelar");
+        btn_func_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_func_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -633,6 +638,13 @@ public class principal extends javax.swing.JFrame {
         modoFunc = "Novo";
         ManipulaInterfaceFunc();
     }//GEN-LAST:event_btn_func_novoActionPerformed
+
+    private void btn_func_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_cancelarActionPerformed
+        c_func_mat.setText("");
+        c_func_nome.setText("");
+        modoFunc = "Navegar";
+        ManipulaInterfaceFunc();
+    }//GEN-LAST:event_btn_func_cancelarActionPerformed
 
     /**
      * @param args the command line arguments

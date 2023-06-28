@@ -449,6 +449,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cancelar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_func_cancelarActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cb_func_deps">
                   <Properties>
