@@ -3,6 +3,7 @@ package com.jocile.cadastrodefuncionarios.view;
 import com.jocile.cadastrodefuncionarios.entities.Departamento;
 import com.jocile.cadastrodefuncionarios.entities.Funcionario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class principal extends javax.swing.JFrame {
@@ -155,6 +156,26 @@ public class principal extends javax.swing.JFrame {
         //Preenche a lista do combo box
         LoadCBDep();
     }
+    
+    public void LoadTableFunc(){
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Matrícula","Nome","Departamento"},0);
+            
+            
+        for(int i=0;i<ListaFunc.size();i++){
+            Object linha[] = new Object[]{ListaFunc.get(i).getMatricula(),
+                                          ListaFunc.get(i).getNome()};
+                                          ListaFunc.get(i).getDep();
+        
+            modelo.addRow(linha);
+        }
+        
+        tbl_func_funcs.setModel(modelo);
+        tbl_func_funcs.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbl_func_funcs.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbl_func_funcs.getColumnModel().getColumn(2).setPreferredWidth(100);
+        
+    }
+    
     public void LoadCBDep(){
         cb_func_deps.removeAllItems();
         cb_func_deps.addItem("Selecione");
@@ -621,7 +642,21 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_func_excluirActionPerformed
 
     private void btn_func_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_salvarActionPerformed
-        // TODO add your handling code here:
+        int index = cb_func_deps.getSelectedIndex();
+        if(index==0){
+            JOptionPane.showMessageDialog(this,"Você deve selecionar um departamento");
+        }else{
+            Funcionario F = new Funcionario();
+            F.setMatricula(Integer.parseInt(c_func_mat.getText()));
+            F.setNome(c_func_nome.getText());
+            F.setDep(ListaDep.get(index-1));
+            
+            ListaFunc.add(F);
+            ListaDep.get(index-1).addFunc(F);
+        }
+        LoadTableFunc();
+        modoFunc = "Navegar";
+        ManipulaInterfaceFunc();
     }//GEN-LAST:event_btn_func_salvarActionPerformed
 
     private void btn_func_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_cancelarActionPerformed
