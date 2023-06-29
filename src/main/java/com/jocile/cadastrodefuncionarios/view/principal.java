@@ -160,12 +160,10 @@ public class principal extends javax.swing.JFrame {
     public void LoadTableFunc(){
         DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Matrícula","Nome","Departamento"},0);
             
-            
         for(int i=0;i<ListaFunc.size();i++){
             Object linha[] = new Object[]{ListaFunc.get(i).getMatricula(),
-                                          ListaFunc.get(i).getNome()};
-                                          ListaFunc.get(i).getDep();
-        
+                                          ListaFunc.get(i).getNome(),
+                                          ListaFunc.get(i).getDep().getNome()};
             modelo.addRow(linha);
         }
         
@@ -630,15 +628,35 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_func_novoActionPerformed
 
     private void btn_func_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_editarActionPerformed
-        // TODO add your handling code here:
+        modoFunc = "Editar";
+        ManipulaInterfaceFunc();
     }//GEN-LAST:event_btn_func_editarActionPerformed
 
     private void tbl_func_funcsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_func_funcsMouseClicked
-        // TODO add your handling code here:
+         //Pega a linha selecionada
+        int index = tbl_func_funcs.getSelectedRow();
+
+        //Testa a validade da linha selecionada
+        if(index>=0 && index<ListaFunc.size()){
+            //Seleciona a linha e preenche os campos para edição
+            Funcionario F = ListaFunc.get(index);
+            c_func_mat.setText(String.valueOf(F.getMatricula()));
+            c_func_nome.setText(F.getNome());
+            
+            //Manipula a interface para o modo seleção
+            modoFunc = "Selecao";
+            ManipulaInterfaceFunc();
+        }
     }//GEN-LAST:event_tbl_func_funcsMouseClicked
 
     private void btn_func_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_excluirActionPerformed
-        // TODO add your handling code here:
+        int index = tbl_func_funcs.getSelectedRow();
+        if(index>=0 && index<ListaFunc.size()){
+            ListaFunc.remove(index);
+        }
+        LoadTableFunc();
+        modoFunc = "Navegar";
+        ManipulaInterfaceFunc();
     }//GEN-LAST:event_btn_func_excluirActionPerformed
 
     private void btn_func_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_func_salvarActionPerformed
